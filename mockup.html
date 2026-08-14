@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — dirección blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1119; --grid:#18222F; --stroke:#3D5975; --stroke-soft:#243347;
+  --fg:#E3E9F1; --fg-dim:#8D9BAE; --fg-faint:#5D6B7D;
+  --accent:#59A8D6; --amber:#D9A147; --surface:#101825;
+  --font-display:"IBM Plex Sans Condensed",sans-serif;
+  --font-body:"IBM Plex Sans",sans-serif;
+  --font-mono:"IBM Plex Mono",monospace;
+}
+[data-theme="light"]{
+  --ink:#EDF1F6; --grid:#DAE2EC; --stroke:#33506F; --stroke-soft:#C3D0DE;
+  --fg:#111A24; --fg-dim:#4B5B6D; --fg-faint:#7E8C9C;
+  --accent:#1B5C8C; --amber:#A9701F; --surface:#F5F8FB;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--ink); color:var(--fg); font-family:var(--font-body);
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px; transition:background-color .3s,color .3s;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+.mono{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint)}
+
+/* ── toolbar ── */
+.toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:28px}
+.toolbar button{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;color:var(--fg-dim);border:1px solid var(--stroke-soft);
+  padding:6px 12px;cursor:pointer;transition:color .2s,border-color .2s;
+}
+.toolbar button:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ── hero: sheet + title block ── */
+.sheet{position:relative;border:1px solid var(--stroke);padding:0;background:transparent}
+.sheet::before,.sheet::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--stroke);}
+.sheet::before{top:7px;left:7px;border-right:none;border-bottom:none}
+.sheet::after{bottom:7px;right:7px;border-left:none;border-top:none}
+.sheet-inner{border:1px solid var(--stroke-soft);margin:7px;padding:28px 28px 0}
+.sheet-label{display:flex;justify-content:space-between;margin-bottom:8px}
+
+.diagram{width:100%;height:auto;display:block;max-width:760px;margin:0 auto}
+.dl{stroke:var(--stroke);stroke-width:1;fill:none}
+.dl-a{stroke:var(--accent);stroke-width:1.25;fill:none}
+.dn{fill:var(--surface);stroke:var(--stroke);stroke-width:1}
+.dn-a{fill:var(--surface);stroke:var(--accent);stroke-width:1.25}
+.dt{font-family:var(--font-mono);font-size:10.5px;fill:var(--fg-dim);letter-spacing:.04em}
+.dt-a{font-family:var(--font-mono);font-size:10.5px;fill:var(--accent);letter-spacing:.04em}
+.dt-k{font-family:var(--font-mono);font-size:9.5px;fill:var(--fg-faint);letter-spacing:.12em}
+
+/* title block (cartucho) */
+.titleblock{
+  border-top:1px solid var(--stroke); margin-top:20px;
+  display:grid; grid-template-columns:1fr auto;
+}
+.tb-main{padding:20px 24px 22px;border-right:1px solid var(--stroke-soft)}
+.tb-name{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6.5vw,62px);
+  line-height:.95;letter-spacing:-.015em;text-transform:uppercase;
+}
+.tb-role{font-family:var(--font-display);font-weight:500;font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:6px}
+.tb-tag{max-width:44ch;color:var(--fg-dim);margin-top:14px;font-size:14.5px}
+.tb-meta{display:grid;grid-template-rows:repeat(4,1fr)}
+.tb-cell{padding:11px 20px;border-bottom:1px solid var(--stroke-soft);min-width:180px}
+.tb-cell:last-child{border-bottom:none}
+.tb-cell span{display:block;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-faint)}
+.tb-cell strong{font-weight:500;font-size:13.5px;font-family:var(--font-mono)}
+.tb-cell a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--stroke)}
+.tb-cell a:hover{color:var(--accent);border-color:var(--accent)}
+.cv{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--accent);padding:8px 14px;text-decoration:none}
+.cv:hover{opacity:.86}
+
+/* ── section ── */
+.section{margin-top:72px}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px}
+.sec-head h2{font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:.02em;text-transform:uppercase}
+.sec-rule{flex:1;height:1px;background:var(--stroke-soft)}
+
+/* ── timeline ── */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--stroke-soft)}
+.entry{position:relative;margin-bottom:34px}
+.entry::before{content:"";position:absolute;left:-34px;top:7px;width:11px;height:11px;border:1px solid var(--stroke);background:var(--ink);transform:rotate(45deg)}
+.entry.now::before{border-color:var(--amber);background:var(--amber)}
+.card{border:1px solid var(--stroke-soft);background:var(--surface);padding:22px 24px}
+.card-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px}
+.card-top h3{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.01em}
+.card-top .at{color:var(--fg-faint);font-family:var(--font-mono);font-size:12px}
+.period{margin-left:auto;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--amber)}
+.role{font-family:var(--font-mono);font-size:12.5px;color:var(--accent);letter-spacing:.04em;margin-bottom:12px}
+.ctx{color:var(--fg-dim);font-size:14px;margin-bottom:14px}
+ul.hl{list-style:none;display:grid;gap:9px;margin-bottom:16px}
+ul.hl li{position:relative;padding-left:20px;font-size:14.5px}
+ul.hl li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--stroke)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--fg-dim);border:1px solid var(--stroke-soft);padding:3px 8px}
+.more{margin-top:16px;background:none;border:none;border-top:1px dashed var(--stroke-soft);width:100%;text-align:left;padding:14px 0 0;cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint)}
+.more:hover{color:var(--accent)}
+.detail{display:none;padding-top:14px}
+.detail.open{display:block}
+.detail h4{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);font-weight:400;margin:14px 0 7px}
+.links{display:flex;gap:8px;margin-top:14px}
+.links a{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--fg-dim);border:1px solid var(--stroke-soft);padding:5px 10px;text-decoration:none}
+.links a:hover{color:var(--accent);border-color:var(--accent)}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:no-preference){
+  .tb-name,.tb-role,.tb-tag{animation:rise .7s cubic-bezier(.2,.7,.3,1) both}
+  .tb-role{animation-delay:.09s}.tb-tag{animation-delay:.16s}
+  .dl,.dl-a{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.5s ease-out .2s forwards}
+}
+@media(max-width:760px){
+  .titleblock{grid-template-columns:1fr}
+  .tb-main{border-right:none;border-bottom:1px solid var(--stroke-soft)}
+  .tb-meta{grid-template-columns:1fr 1fr}
+  .period{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="toolbar">
+  <button onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark'">Tema</button>
+  <button>ES / EN</button>
+</div>
+
+<div class="sheet">
+  <div class="sheet-inner">
+    <div class="sheet-label">
+      <span class="mono">Arquitectura de integraciones</span>
+      <span class="mono">Esc. 1:1 · Rev. 2026</span>
+    </div>
+
+    <svg class="diagram" viewBox="0 0 760 250" role="img" aria-label="Diagrama de la arquitectura de integraciones entre el ERP y plataformas externas">
+      <rect class="dn" x="34" y="96" width="128" height="52"/>
+      <text class="dt" x="98" y="118" text-anchor="middle">Core ERP</text>
+      <text class="dt-k" x="98" y="134" text-anchor="middle">SPRING BOOT</text>
+
+      <path class="dl" d="M162 122 H244"/>
+
+      <rect class="dn" x="244" y="96" width="122" height="52"/>
+      <text class="dt" x="305" y="118" text-anchor="middle">Bus de eventos</text>
+      <text class="dt-k" x="305" y="134" text-anchor="middle">RABBITMQ</text>
+
+      <path class="dl" d="M366 122 H448"/>
+
+      <rect class="dn-a" x="448" y="80" width="128" height="84"/>
+      <text class="dt-a" x="512" y="106" text-anchor="middle">Integraciones</text>
+      <text class="dt-k" x="512" y="122" text-anchor="middle">NESTJS</text>
+      <text class="dt-k" x="512" y="144" text-anchor="middle">1 MÓDULO / PROVEEDOR</text>
+
+      <path class="dl-a" d="M576 100 H620 V44 H672"/>
+      <path class="dl-a" d="M576 114 H640 V96 H672"/>
+      <path class="dl-a" d="M576 130 H640 V148 H672"/>
+      <path class="dl-a" d="M576 144 H620 V200 H672"/>
+
+      <text class="dt" x="678" y="48">Couriers</text>
+      <text class="dt" x="678" y="100">Marketplaces</text>
+      <text class="dt" x="678" y="152">Pagos</text>
+      <text class="dt" x="678" y="204">SUNAT</text>
+
+      <path class="dl" d="M512 164 V206" stroke-dasharray="3 4"/>
+      <text class="dt-k" x="512" y="222" text-anchor="middle">WEBHOOKS ENTRANTES</text>
+    </svg>
+
+    <div class="titleblock">
+      <div class="tb-main">
+        <div class="tb-name">Octavio<br>Toledo</div>
+        <div class="tb-role">Software Engineer</div>
+        <p class="tb-tag">Backend e integraciones para plataformas ERP. Java, Spring Boot, NestJS y arquitectura orientada a eventos.</p>
+      </div>
+      <div class="tb-meta">
+        <div class="tb-cell"><span>Ubicación</span><strong>Mendoza, AR · Remoto</strong></div>
+        <div class="tb-cell"><span>GitHub</span><strong><a href="#">OctavioToledo</a></strong></div>
+        <div class="tb-cell"><span>LinkedIn</span><strong><a href="#">octaviotoledo</a></strong></div>
+        <div class="tb-cell"><a class="cv" href="#">Descargar CV</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="sec-head"><h2>Experiencia profesional</h2><div class="sec-rule"></div><span class="mono">03 registros</span></div>
+
+  <div class="timeline">
+
+    <article class="entry now">
+      <div class="card">
+        <div class="card-top">
+          <h3>Powip</h3><span class="at">ERP SaaS · microservicios</span>
+          <span class="period">Jul 2025 — Actualidad</span>
+        </div>
+        <div class="role">Full Stack Developer — Integraciones</div>
+        <p class="ctx">PowipSystem, un ERP SaaS con arquitectura de microservicios, con foco en la capa de integraciones con sistemas externos.</p>
+        <ul class="hl">
+          <li>Construyo conectores de punta a punta con plataformas externas —couriers, e-commerce, pasarelas de pago y facturación electrónica— desde el análisis de la documentación del proveedor hasta el despliegue a producción.</li>
+          <li>Diseñé un módulo unificado de integraciones donde cada proveedor entra aislado con sus propias credenciales y su propio webhook, en lugar de multiplicar microservicios.</li>
+          <li>Definí el esquema de idempotencia y manejo de fallos: reserva previa, claim atómico y verificación manual ante timeouts ambiguos, evitando envíos duplicados.</li>
+          <li>Desarrollo los features de frontend asociados a cada integración con Next.js, React y TailwindCSS.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">NestJS</span><span class="tag">RabbitMQ</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Next.js</span><span class="tag">TypeScript</span></div>
+        <button class="more" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'— Ocultar detalles técnicos':'+ Ver más detalles técnicos'">+ Ver más detalles técnicos</button>
+        <div class="detail">
+          <h4>Integraciones</h4>
+          <ul class="hl"><li>Sincronización de productos, clientes, precios, stock y pedidos entre el ERP y plataformas externas vía APIs REST y webhooks, resolviendo mapeos de datos, formatos y códigos externos.</li></ul>
+          <h4>Arquitectura y backend</h4>
+          <ul class="hl"><li>Mapeo de estados entre sistemas externos y el dominio del ERP, con guardas de staleness y tolerancia a estados desconocidos.</li><li>Microservicios comunicados de forma asíncrona, API Gateway centralizado y autenticación con Spring Security y JWT.</li></ul>
+          <h4>Testing</h4>
+          <ul class="hl"><li>Testing y debugging de endpoints y flujos de integración; documentación técnica de cada conector para el equipo.</li></ul>
+        </div>
+        <div class="links"><a href="#">Sistema ↗</a><a href="#">Landing ↗</a></div>
+      </div>
+    </article>
+
+    <article class="entry now">
+      <div class="card">
+        <div class="card-top">
+          <h3>Independiente</h3><span class="at">Gimnasio</span>
+          <span class="period">Jul 2026 — Actualidad</span>
+        </div>
+        <div class="role">Desarrollador Freelance</div>
+        <p class="ctx">Desarrollo de una aplicación de gestión para un gimnasio, a cargo del proyecto de punta a punta junto al cliente.</p>
+        <ul class="hl">
+          <li>Relevé los procesos y datos actuales del negocio junto al cliente para definir el alcance del sistema.</li>
+          <li>Establecí los requerimientos funcionales, el presupuesto y el cronograma en reuniones directas con el cliente.</li>
+        </ul>
+        <div class="tags"><span class="tag">React</span><span class="tag">Supabase</span><span class="tag">PostgreSQL</span><span class="tag">Vercel</span></div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="card">
+        <div class="card-top">
+          <h3>Independiente</h3><span class="at">Clases particulares</span>
+          <span class="period">2023 — Actualidad</span>
+        </div>
+        <div class="role">Profesor de programación</div>
+        <p class="ctx">Clases uno a uno para estudiantes y personas en transición hacia el desarrollo de software.</p>
+        <ul class="hl">
+          <li>Enseño fundamentos de programación, Java y desarrollo web orientado a proyectos.</li>
+          <li>Adapto el material a cada alumno, priorizando que escriban y depuren código real desde la primera clase.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">SQL</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>
