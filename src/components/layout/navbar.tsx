@@ -20,6 +20,11 @@ const NAV_SECTIONS = [
   { id: 'contacto', es: 'Contacto', en: 'Contact' },
 ] as const
 
+const MENU_LABELS = {
+  es: { open: 'Abrir menú', nav: 'Navegación' },
+  en: { open: 'Open menu', nav: 'Navigation' },
+}
+
 export function Navbar() {
   const { language } = useLanguage()
   const pathname = usePathname()
@@ -50,11 +55,11 @@ export function Navbar() {
         <nav className="hidden flex-1 gap-4 md:flex">{renderLinks()}</nav>
 
         <Sheet>
-          <SheetTrigger className="md:hidden" aria-label="Abrir menú">
+          <SheetTrigger className="md:hidden" aria-label={MENU_LABELS[language].open}>
             <Menu className="h-5 w-5 text-fg" />
           </SheetTrigger>
           <SheetContent side="right" className="bg-background">
-            <SheetTitle className="sr-only">Navegación</SheetTitle>
+            <SheetTitle className="sr-only">{MENU_LABELS[language].nav}</SheetTitle>
             <nav className="mt-10 flex flex-col gap-5 px-4">{renderLinks()}</nav>
           </SheetContent>
         </Sheet>
