@@ -1,9 +1,31 @@
 'use client'
 
 import { motion, useReducedMotion } from 'motion/react'
+import { useLanguage } from '@/context/language-context'
+
+const DIAGRAM_TEXT = {
+  es: {
+    ariaLabel: 'Diagrama de la arquitectura de integraciones entre el ERP y plataformas externas',
+    eventBus: 'Bus de eventos',
+    integrations: 'Integraciones',
+    perProvider: '1 MÓDULO / PROVEEDOR',
+    payments: 'Pagos',
+    incomingWebhooks: 'WEBHOOKS ENTRANTES',
+  },
+  en: {
+    ariaLabel: 'Diagram of the integrations architecture between the ERP and external platforms',
+    eventBus: 'Event bus',
+    integrations: 'Integrations',
+    perProvider: '1 MODULE / PROVIDER',
+    payments: 'Payments',
+    incomingWebhooks: 'INCOMING WEBHOOKS',
+  },
+}
 
 export function ArchitectureDiagram() {
   const reduceMotion = useReducedMotion()
+  const { language } = useLanguage()
+  const t = DIAGRAM_TEXT[language]
 
   const lineProps = {
     initial: reduceMotion ? undefined : { pathLength: 0 },
@@ -16,7 +38,7 @@ export function ArchitectureDiagram() {
     <svg
       viewBox="0 0 760 250"
       role="img"
-      aria-label="Diagrama de la arquitectura de integraciones entre el ERP y plataformas externas"
+      aria-label={t.ariaLabel}
       className="mx-auto w-full max-w-[760px]"
     >
       <rect x="34" y="96" width="128" height="52" className="fill-card stroke-stroke" />
@@ -31,7 +53,7 @@ export function ArchitectureDiagram() {
 
       <rect x="244" y="96" width="122" height="52" className="fill-card stroke-stroke" />
       <text x="305" y="118" textAnchor="middle" className="fill-fg-dim font-mono text-[10.5px]">
-        Bus de eventos
+        {t.eventBus}
       </text>
       <text x="305" y="134" textAnchor="middle" className="fill-fg-faint font-mono text-[9.5px] tracking-wider">
         RABBITMQ
@@ -41,13 +63,13 @@ export function ArchitectureDiagram() {
 
       <rect x="448" y="80" width="128" height="84" className="fill-card stroke-brand" strokeWidth={1.25} />
       <text x="512" y="106" textAnchor="middle" className="fill-brand font-mono text-[10.5px]">
-        Integraciones
+        {t.integrations}
       </text>
       <text x="512" y="122" textAnchor="middle" className="fill-fg-faint font-mono text-[9.5px] tracking-wider">
         NESTJS
       </text>
       <text x="512" y="144" textAnchor="middle" className="fill-fg-faint font-mono text-[9.5px] tracking-wider">
-        1 MÓDULO / PROVEEDOR
+        {t.perProvider}
       </text>
 
       <motion.path d="M576 100 H620 V44 H672" className="stroke-brand" strokeWidth={1.25} fill="none" {...lineProps} />
@@ -57,12 +79,12 @@ export function ArchitectureDiagram() {
 
       <text x="678" y="48" className="fill-fg-dim font-mono text-[10.5px]">Couriers</text>
       <text x="678" y="100" className="fill-fg-dim font-mono text-[10.5px]">Marketplaces</text>
-      <text x="678" y="152" className="fill-fg-dim font-mono text-[10.5px]">Pagos</text>
+      <text x="678" y="152" className="fill-fg-dim font-mono text-[10.5px]">{t.payments}</text>
       <text x="678" y="204" className="fill-fg-dim font-mono text-[10.5px]">SUNAT</text>
 
       <path d="M512 164 V206" strokeDasharray="3 4" className="stroke-stroke" strokeWidth={1} fill="none" />
       <text x="512" y="222" textAnchor="middle" className="fill-fg-faint font-mono text-[9.5px] tracking-wider">
-        WEBHOOKS ENTRANTES
+        {t.incomingWebhooks}
       </text>
     </svg>
   )

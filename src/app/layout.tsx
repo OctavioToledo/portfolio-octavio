@@ -14,7 +14,7 @@ const plexSans = IBM_Plex_Sans({
 const plexSansCondensed = IBM_Plex_Sans_Condensed({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-  variable: "--font-display",
+  variable: "--font-display-plex",
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       suppressHydrationWarning
       className={`${plexSans.variable} ${plexSansCondensed.variable} ${plexMono.variable}`}
     >

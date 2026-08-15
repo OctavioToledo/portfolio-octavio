@@ -61,7 +61,7 @@ export const experienceEntries: Localized<ExperienceEntry[]> = {
         'Material adaptado a cada alumno, priorizando código real desde la primera clase.',
       ],
       tags: ['Java', 'JavaScript', 'SQL'],
-      current: false,
+      current: true,
     },
   ],
   en: [
@@ -112,7 +112,7 @@ export const experienceEntries: Localized<ExperienceEntry[]> = {
         'Material adapted to each student, prioritizing real code from the first class.',
       ],
       tags: ['Java', 'JavaScript', 'SQL'],
-      current: false,
+      current: true,
     },
   ],
 }

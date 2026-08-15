@@ -4,7 +4,7 @@
 
 @theme inline {
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-plex), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-plex), ui-monospace, monospace;
 
   --color-background: var(--ink);
@@ -65,11 +65,18 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-padding-top: 4rem;
+  }
   body {
     @apply bg-background text-foreground;
     background-image:
       linear-gradient(var(--color-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
     background-size: 32px 32px;
+  }
+  a:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
   }
 }

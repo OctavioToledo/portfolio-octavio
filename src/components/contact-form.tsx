@@ -7,7 +7,7 @@ import emailjs from '@emailjs/browser'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-context'
 import { contactContent } from '@/content/contact'
-import { contactSchema, type ContactFormValues } from '@/lib/contact-schema'
+import { createContactSchema, type ContactFormValues } from '@/lib/contact-schema'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -19,7 +19,7 @@ export function ContactForm() {
   const [honeypot, setHoneypot] = useState('')
 
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(createContactSchema(language)),
     defaultValues: { name: '', email: '', message: '' },
   })
 

@@ -18,6 +18,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLanguageState(getInitialLanguage())
   }, [])
 
+  useEffect(() => {
+    document.documentElement.lang = language
+  }, [language])
+
   function setLanguage(next: Language) {
     setLanguageState(next)
     persistLanguage(next)

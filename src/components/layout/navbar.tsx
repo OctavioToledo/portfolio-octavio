@@ -20,6 +20,8 @@ const NAV_SECTIONS = [
   { id: 'contacto', es: 'Contacto', en: 'Contact' },
 ] as const
 
+const NAV_IDS = NAV_SECTIONS.map((s) => s.id)
+
 const MENU_LABELS = {
   es: { open: 'Abrir menú', nav: 'Navegación' },
   en: { open: 'Open menu', nav: 'Navigation' },
@@ -31,7 +33,7 @@ export function Navbar() {
   const isHome = pathname === '/'
   // useScrollSpy looks up section ids via document.getElementById — on routes other than
   // "/" none of them exist, so it safely resolves to null and nothing is highlighted.
-  const activeId = useScrollSpy(NAV_SECTIONS.map((s) => s.id))
+  const activeId = useScrollSpy(NAV_IDS)
   const cv = heroContent[language]
   const cvHref = language === 'es' ? socialLinks.cvEs : socialLinks.cvEn
 
@@ -40,6 +42,7 @@ export function Navbar() {
       <a
         key={section.id}
         href={isHome ? `#${section.id}` : `/#${section.id}`}
+        aria-current={isHome && activeId === section.id ? 'page' : undefined}
         className={`whitespace-nowrap font-mono text-[11px] uppercase tracking-wider transition-colors ${
           isHome && activeId === section.id ? 'text-brand' : 'text-fg-dim hover:text-fg'
         }`}
