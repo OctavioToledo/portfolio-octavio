@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Condensed } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/context/language-context";
+import { Toaster } from "@/components/ui/sonner";
 
 const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -38,7 +40,10 @@ export default function RootLayout({
       className={`${plexSans.variable} ${plexSansCondensed.variable} ${plexMono.variable}`}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
