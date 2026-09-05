@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import emailjs from '@emailjs/browser'
 import { toast } from 'sonner'
 import { useLanguage } from '@/context/language-context'
 import { contactContent } from '@/content/contact'
@@ -27,12 +26,12 @@ export function ContactForm() {
     if (honeypot) return
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        { from_name: values.name, from_email: values.email, message: values.message },
-        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
-      )
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, company: honeypot }),
+      })
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`)
       toast.success(content.formSuccessMessage)
       form.reset()
     } catch {
