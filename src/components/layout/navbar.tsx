@@ -13,9 +13,8 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/s
 const NAV_SECTIONS = [
   { id: 'hero', es: 'Inicio', en: 'Home' },
   { id: 'como-trabajo', es: 'Cómo trabajo', en: 'How I work' },
+  { id: 'problemas', es: 'Problemas', en: 'Problems' },
   { id: 'experiencia', es: 'Experiencia', en: 'Experience' },
-  { id: 'casos-tecnicos', es: 'Casos técnicos', en: 'Case studies' },
-  { id: 'proyectos', es: 'Proyectos', en: 'Projects' },
   { id: 'skills', es: 'Skills', en: 'Skills' },
   { id: 'resumen', es: 'Resumen', en: 'Summary' },
   { id: 'contacto', es: 'Contacto', en: 'Contact' },

@@ -11,9 +11,9 @@ export type HeroContent = {
 export const heroContent: Localized<HeroContent> = {
   es: {
     name: 'Octavio Toledo',
-    role: 'Software Engineer',
+    role: 'Ingeniero de Software',
     tagline:
-      'Backend e integraciones para plataformas ERP. Java, Spring Boot, NestJS y arquitectura orientada a eventos.',
+      'Backend para plataformas ERP. Sistemas distribuidos, integridad de datos y arquitectura orientada a eventos.',
     location: 'Mendoza, AR · Remoto',
     cvLabel: 'Descargar CV',
   },
@@ -21,7 +21,7 @@ export const heroContent: Localized<HeroContent> = {
     name: 'Octavio Toledo',
     role: 'Software Engineer',
     tagline:
-      'Backend and integrations for ERP platforms. Java, Spring Boot, NestJS and event-driven architecture.',
+      'Backend for ERP platforms. Distributed systems, data integrity and event-driven architecture.',
     location: 'Mendoza, AR · Remote',
     cvLabel: 'Download CV',
   },

@@ -7,105 +7,116 @@ export type CaseStudy = {
   tags: string[]
 }
 
+// Redactado en neutro a propósito (regla de confidencialidad): sin nombres de proveedores
+// externos, sin nombres de servicios internos, sin métricas del sistema del empleador.
 export const caseStudies: Localized<CaseStudy[]> = {
   es: [
     {
-      title: 'Conector de courier end-to-end',
-      problem: 'Había que despachar pedidos a un nuevo operador logístico sin proceso previo.',
+      title: 'Integridad de inventario en un sistema multi-servicio',
+      problem:
+        'La gran mayoría de las ventas importadas no descontaba stock, y el inventario se corrompía cuando dos ventas de la misma variante ocurrían a la vez.',
       bullets: [
-        'Diseñé el contrato de creación de pedidos con validación por tipo de cliente (retiro en domicilio / despacho desde almacén).',
-        'Implementé test de conexión de credenciales y recepción de webhooks firmados con HMAC.',
-        'Cubrí el flujo con tests automatizados backend+frontend antes de producción.',
+        'Diagnostiqué midiendo contra producción: la clave que enganchaba cada venta con su producto cubría menos del 10% de los casos reales, y el resto se descartaba en silencio.',
+        'Corregí las causas raíz en la ingesta: el mapeo que perdía la variante, el sync de stock que pisaba reservas activas y las mermas que no descontaban stock físico.',
+        'Agregué bloqueo pesimista en las operaciones de inventario e idempotencia en webhooks y creación de ventas.',
+        'Rediseñé la resolución de productos entre cinco microservicios: nueva clave de matching con tabla de referencias externas, bandeja de reconciliación por empresa para los casos ambiguos, y despliegue por fases con shadow mode para no romper la ingesta en producción.',
       ],
-      tags: ['NestJS', 'TypeScript', 'PostgreSQL', 'RabbitMQ', 'HMAC'],
+      tags: ['PostgreSQL', 'Concurrencia', 'TypeORM', 'Modelado de datos'],
     },
     {
-      title: 'Idempotencia en el despacho de pedidos',
-      problem: 'El proveedor no permite consultar un pedido por código; un timeout dejaba el estado ambiguo.',
+      title: 'Idempotencia en operaciones no reintentables',
+      problem:
+        'Varios proveedores externos no permiten consultar lo que acabás de crear, así que un timeout deja el estado ambiguo: no sabés si la operación ocurrió.',
       bullets: [
-        'Diseñé un esquema de reserva previa con toma atómica en base de datos antes de llamar al proveedor.',
-        'Ante timeout el sistema no reintenta — deja el pedido en verificación manual, evitando envíos duplicados.',
+        'Implementé un esquema de reserva previa con índice único e INSERT ignorado: solo el hilo que gana el insert ejecuta la acción.',
+        'Ante fallo posterior, rollback de la reserva; ante timeout, verificación manual en vez de reintento ciego.',
+        'El mismo patrón cubre creación de pedidos, webhooks entrantes e importación.',
       ],
-      tags: ['Spring Boot', 'PostgreSQL', 'Diseño de APIs'],
+      tags: ['Concurrencia', 'PostgreSQL', 'NestJS'],
     },
     {
-      title: 'Sincronización de estados courier → ERP',
-      problem: 'Webhooks desordenados llegaban con estados inexistentes en el ciclo de vida interno.',
+      title: 'Consistencia de estado ante eventos desordenados',
+      problem: 'Los webhooks llegan duplicados, fuera de orden y sin garantía de entrega.',
       bullets: [
-        'Mapeé 13 estados externos a una máquina de estados que solo avanza.',
-        'Agregué una guarda por antigüedad: un webhook fuera de orden no retrocede el estado.',
-        'Los estados desconocidos generan una alerta sin romper el flujo.',
+        'Máquina de estados forward-only con guarda de staleness por timestamp; la cancelación es la única transición terminal que siempre se aplica.',
+        'El payload del webhook no se considera fuente de verdad: al recibirlo se re-consulta la API y se emiten los valores reales.',
       ],
-      tags: ['RabbitMQ', 'arquitectura orientada a eventos', 'máquina de estados'],
+      tags: ['RabbitMQ', 'Event-driven', 'Máquina de estados'],
     },
     {
-      title: 'Consolidación de arquitectura de integraciones',
-      problem: 'Cada integración nueva nacía como microservicio propio, multiplicando infraestructura y código duplicado.',
+      title: 'Conector bidireccional con alta self-service',
+      problem:
+        'Publicar el catálogo en una plataforma externa y transcribir sus pedidos se hacía a mano, y cada alta de una empresa requería intervención del equipo.',
       bullets: [
-        'Unifiqué todo en un único servicio con un módulo por proveedor y credenciales aisladas por integración.',
-        'Centralicé la publicación de eventos y los bindings.',
-        'Eliminé un microservicio completo sin pérdida de funcionalidad.',
+        'Sincronización de catálogo hacia la plataforma externa —productos, variantes, precios e imágenes— idempotente: se puede correr las veces que haga falta sin duplicar nada.',
+        'Ingesta de pedidos en tiempo real por webhooks: cada venta cerrada afuera entra sola al ERP, por eventos y sin tocar el core de ventas.',
+        'Alta self-service: la empresa carga su propia credencial, verifica la conexión y activa la integración. Las credenciales se resuelven por empresa y el fallback global está desactivado por defecto, para que dos clientes no puedan cruzarse en producción.',
       ],
-      tags: ['NestJS', 'microservicios', 'arquitectura modular'],
+      tags: ['NestJS', 'RabbitMQ', 'Webhooks', 'Multi-tenancy'],
     },
     {
-      title: 'API Gateway y validación de tokens',
-      problem: 'El frontend llamaba directo a cada microservicio, dispersando la autenticación y el ruteo.',
+      title: 'Resiliencia del consumo de mensajes',
+      problem:
+        'Un consumidor descartaba mensajes ante cualquier error de procesamiento, perdiendo eventos de forma silenciosa.',
       bullets: [
-        'Centralicé el tráfico vía un API Gateway.',
-        'Implementé validación stateless de tokens con firma asimétrica y claves publicadas por JWKS.',
+        'Reemplacé el descarte por reintentos con cola de mensajes muertos.',
+        'Mantuve el dominio desacoplado del conector: si el proveedor externo se cae, la venta sigue funcionando.',
       ],
-      tags: ['Spring Cloud Gateway', 'JWT', 'RS256'],
+      tags: ['RabbitMQ', 'DLQ', 'Microservicios'],
     },
   ],
   en: [
     {
-      title: 'End-to-end courier connector',
-      problem: 'The ERP needed to dispatch orders to a new logistics provider with no existing process.',
+      title: 'Inventory integrity in a multi-service system',
+      problem:
+        "The vast majority of imported sales weren't drawing down stock, and inventory got corrupted when two sales of the same variant happened at once.",
       bullets: [
-        'Designed the order-creation contract with validation by customer type (home pickup / warehouse dispatch).',
-        'Built a credentials connection test and HMAC-signed webhook reception.',
-        'Covered the flow with automated backend+frontend tests before shipping to production.',
+        'Diagnosed it by measuring against production: the key linking each sale to its product covered less than 10% of real cases, and the rest was silently discarded.',
+        "Fixed the root causes in ingestion: the mapping that lost the variant, the stock sync that overwrote active reservations, and write-offs that weren't drawing down physical stock.",
+        'Added pessimistic locking to inventory operations and idempotency to webhooks and sale creation.',
+        'Redesigned product resolution across five microservices: a new matching key backed by an external reference table, a per-company reconciliation queue for ambiguous cases, and a phased rollout with shadow mode to avoid breaking ingestion in production.',
       ],
-      tags: ['NestJS', 'TypeScript', 'PostgreSQL', 'RabbitMQ', 'HMAC'],
+      tags: ['PostgreSQL', 'Concurrency', 'TypeORM', 'Data modeling'],
     },
     {
-      title: 'Idempotency in order dispatch',
-      problem: "The provider doesn't support looking up an order by code; a timeout left the state ambiguous.",
+      title: 'Idempotency in non-retryable operations',
+      problem:
+        "Several external providers offer no way to look up what you just created, so a timeout leaves the state ambiguous: you can't tell whether the operation went through.",
       bullets: [
-        'Designed an upfront-reservation scheme with an atomic DB claim before calling the provider.',
-        "On timeout the system doesn't retry — it flags the order for manual verification, avoiding duplicate dispatches.",
+        'Implemented a reserve-first scheme with a unique index and an ignored INSERT: only the thread that wins the insert performs the action.',
+        'On downstream failure, the reservation is rolled back; on timeout, the operation goes to manual verification instead of a blind retry.',
+        'The same pattern covers order creation, inbound webhooks and imports.',
       ],
-      tags: ['Spring Boot', 'PostgreSQL', 'API design'],
+      tags: ['Concurrency', 'PostgreSQL', 'NestJS'],
     },
     {
-      title: 'Courier → ERP status sync',
-      problem: "Out-of-order webhooks carried states that didn't exist in the internal lifecycle.",
+      title: 'State consistency under out-of-order events',
+      problem: 'Webhooks arrive duplicated, out of order and with no delivery guarantee.',
       bullets: [
-        'Mapped 13 external states onto a forward-only state machine.',
-        "Added a staleness guard so an out-of-order webhook can't roll back the state.",
-        'Unknown states raise an alert without breaking the flow.',
+        'Forward-only state machine with a timestamp staleness guard; cancellation is the only terminal transition that always applies.',
+        'The webhook payload is not treated as the source of truth: on receipt the API is re-queried and the real values are emitted.',
       ],
-      tags: ['RabbitMQ', 'event-driven architecture', 'state machine'],
+      tags: ['RabbitMQ', 'Event-driven', 'State machine'],
     },
     {
-      title: 'Consolidating the integrations architecture',
-      problem: 'Every new integration was born as its own microservice, multiplying infrastructure and duplicated code.',
+      title: 'Bidirectional connector with self-service onboarding',
+      problem:
+        'Publishing the catalog to an external platform and transcribing its orders was done by hand, and onboarding each company required the team to step in.',
       bullets: [
-        'Unified everything into a single service with one module per provider and isolated credentials per integration.',
-        'Centralized event publishing and bindings.',
-        'Removed an entire microservice with no loss of functionality.',
+        'Idempotent catalog sync to the external platform — products, variants, prices and images — safe to re-run as many times as needed without duplicating anything.',
+        'Real-time order ingestion via webhooks: every sale closed outside flows into the ERP on its own, event-driven, without touching the sales core.',
+        'Self-service onboarding: the company enters its own credential, verifies the connection and activates the integration. Credentials resolve per company and the global fallback is off by default, so two clients can never cross over in production.',
       ],
-      tags: ['NestJS', 'microservices', 'modular architecture'],
+      tags: ['NestJS', 'RabbitMQ', 'Webhooks', 'Multi-tenancy'],
     },
     {
-      title: 'API Gateway and token validation',
-      problem: 'The frontend called each microservice directly, scattering auth and routing.',
+      title: 'Message-consumption resilience',
+      problem: 'A consumer was discarding messages on any processing error, silently losing events.',
       bullets: [
-        'Centralized traffic through an API Gateway.',
-        'Implemented stateless token validation with asymmetric signing and JWKS-published keys.',
+        'Replaced the discard with retries backed by a dead-letter queue.',
+        'Kept the domain decoupled from the connector: if the external provider goes down, sales keep working.',
       ],
-      tags: ['Spring Cloud Gateway', 'JWT', 'RS256'],
+      tags: ['RabbitMQ', 'DLQ', 'Microservices'],
     },
   ],
 }

@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Octavio Toledo — Software Engineer',
+  title: 'Octavio Toledo — Ingeniero de Software',
   description:
-    'Backend e integraciones para plataformas ERP. Java, Spring Boot, NestJS y arquitectura orientada a eventos.',
+    'Backend para plataformas ERP. Sistemas distribuidos, integridad de datos y arquitectura orientada a eventos.',
   metadataBase: new URL('https://octavio-toledo.vercel.app'),
 };
 

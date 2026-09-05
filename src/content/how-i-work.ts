@@ -19,7 +19,7 @@ export const howIWorkContent: Localized<HowIWorkContent> = {
     pillars: [
       {
         title:
-          'Diseño para fallas — idempotencia y verificación manual ante timeouts ambiguos, para evitar envíos duplicados en las integraciones que construí.',
+          'Diseño para fallas — idempotencia, bloqueo ante concurrencia y verificación manual en vez de reintento ciego cuando el estado queda ambiguo.',
       },
       {
         title:
@@ -36,7 +36,7 @@ export const howIWorkContent: Localized<HowIWorkContent> = {
     pillars: [
       {
         title:
-          'Designed for failure — idempotency and manual verification on ambiguous timeouts, to avoid duplicate dispatches in the integrations I built.',
+          'Designed for failure — idempotency, locking under concurrency, and manual verification instead of blind retries when state is left ambiguous.',
       },
       {
         title:

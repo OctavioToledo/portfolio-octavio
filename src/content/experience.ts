@@ -17,15 +17,15 @@ export const experienceEntries: Localized<ExperienceEntry[]> = {
     {
       title: 'Aranni Brands — Powip',
       subtitle: 'ERP SaaS · microservicios',
-      role: 'Full Stack Developer — Integraciones',
+      role: 'Backend Developer',
       period: 'Septiembre 2025 — Actualidad',
       context:
-        'PowipSystem, un ERP SaaS con arquitectura de microservicios, con foco en la capa de integraciones con sistemas externos.',
+        'PowipSystem, un ERP SaaS con arquitectura de microservicios. Trabajo en el backend: diseño de servicios, APIs REST, integridad de datos y la capa de eventos.',
       highlights: [
-        'Construyo conectores de punta a punta (couriers, e-commerce, pagos, facturación electrónica) desde el análisis de documentación del proveedor hasta producción.',
-        'Diseñé un módulo unificado de integraciones (credenciales y webhook aislados por proveedor, sin multiplicar microservicios).',
-        'Esquema de idempotencia y manejo de fallos (reserva previa, claim atómico, verificación manual ante timeouts ambiguos).',
-        'Frontend de cada integración con Next.js, React y TailwindCSS.',
+        'Diseño e implemento servicios del ERP con Spring Boot y NestJS sobre microservicios y mensajería con RabbitMQ.',
+        'Integridad de datos y concurrencia: bloqueo pesimista en inventario, idempotencia en operaciones no reintentables y máquinas de estado forward-only.',
+        'Construyo los conectores con sistemas externos (e-commerce, pagos, logística, facturación) como módulos aislados, sin multiplicar microservicios.',
+        'Frontend de las pantallas que cada feature necesita, con Next.js y React.',
       ],
       tags: ['Java', 'Spring Boot', 'NestJS', 'RabbitMQ', 'PostgreSQL', 'Docker', 'Next.js', 'TypeScript'],
       links: [
@@ -68,15 +68,15 @@ export const experienceEntries: Localized<ExperienceEntry[]> = {
     {
       title: 'Aranni Brands — Powip',
       subtitle: 'SaaS ERP · microservices',
-      role: 'Full Stack Developer — Integrations',
+      role: 'Backend Developer',
       period: 'September 2025 — Present',
       context:
-        'PowipSystem, a microservices-based SaaS ERP, focused on the integrations layer with external systems.',
+        'PowipSystem, a microservices-based SaaS ERP. I work on the backend: service design, REST APIs, data integrity and the event layer.',
       highlights: [
-        'Build end-to-end connectors (couriers, e-commerce, payments, e-invoicing) from provider documentation analysis to production.',
-        'Designed a unified integrations module (isolated credentials and webhook per provider, no microservice sprawl).',
-        'Idempotency and failure-handling scheme (upfront reservation, atomic claim, manual verification on ambiguous timeouts).',
-        'Frontend for each integration with Next.js, React and TailwindCSS.',
+        'Design and build ERP services with Spring Boot and NestJS on a microservices architecture with RabbitMQ messaging.',
+        'Data integrity and concurrency: pessimistic locking on inventory, idempotency for non-retryable operations, and forward-only state machines.',
+        'Build the connectors to external systems (e-commerce, payments, logistics, e-invoicing) as isolated modules, without microservice sprawl.',
+        'Frontend for the screens each feature needs, with Next.js and React.',
       ],
       tags: ['Java', 'Spring Boot', 'NestJS', 'RabbitMQ', 'PostgreSQL', 'Docker', 'Next.js', 'TypeScript'],
       links: [

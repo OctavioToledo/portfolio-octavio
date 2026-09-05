@@ -6,7 +6,7 @@ import { AboutPageContent } from '@/components/about-page-content'
 export const metadata: Metadata = {
   title: 'Sobre mí — Octavio Toledo',
   description:
-    'Software Engineer especializado en backend con Java y Spring, integraciones de ERP y desarrollo asistido por IA.',
+    'Ingeniero de Software especializado en backend con Java y Spring: sistemas distribuidos, integridad de datos y arquitectura orientada a eventos.',
 }
 
 export default function SobreMiPage() {
