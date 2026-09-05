@@ -1,10 +1,12 @@
 'use client'
 
+import { motion } from 'motion/react'
 import { useLanguage } from '@/context/language-context'
 import { contactContent } from '@/content/contact'
 import { socialLinks } from '@/content/hero'
 import { SectionHeader } from '@/components/blueprint/section-header'
 import { ContactForm } from '@/components/contact-form'
+import { revealUp, withDelay } from '@/lib/motion'
 
 export function ContactSection() {
   const { language } = useLanguage()
@@ -15,7 +17,7 @@ export function ContactSection() {
       <SectionHeader title={content.sectionTitle} />
       <p className="mb-8 max-w-[60ch] text-[14.5px] text-fg-dim">{content.intro}</p>
       <div className="grid gap-8 md:grid-cols-2">
-        <div className="grid gap-4 self-start border border-stroke-soft p-6">
+        <motion.div {...revealUp} className="bp-panel grid gap-4 self-start p-6">
           <div>
             <span className="block font-mono text-[10.5px] uppercase tracking-wider text-fg-faint">
               {content.emailLabel}
@@ -42,10 +44,10 @@ export function ContactSection() {
               linkedin.com/in/octaviotoledo
             </a>
           </div>
-        </div>
-        <div className="border border-stroke-soft p-6">
+        </motion.div>
+        <motion.div {...withDelay(revealUp, 0.08)} className="bp-panel p-6">
           <ContactForm />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

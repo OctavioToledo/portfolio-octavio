@@ -2,15 +2,14 @@
 
 import { motion } from 'motion/react'
 import { TechTag } from './tech-tag'
+import { EASE, revealUp } from '@/lib/motion'
 import type { ExperienceEntry } from '@/content/experience'
 
 export function TimelineEntry({ entry }: { entry: ExperienceEntry }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1] }}
+      {...revealUp}
+      whileHover={{ y: -2, transition: { duration: 0.2, ease: EASE } }}
       className="relative mb-8 pl-2"
     >
       <span
@@ -18,7 +17,7 @@ export function TimelineEntry({ entry }: { entry: ExperienceEntry }) {
           entry.current ? 'border-amber bg-amber' : 'border-stroke bg-background'
         }`}
       />
-      <div className="border border-stroke-soft bg-card p-6">
+      <div className="bp-panel p-6 transition-colors duration-200 hover:border-stroke">
         <div className="mb-1 flex flex-wrap items-baseline gap-2.5">
           <h3 className="font-display text-xl font-semibold">{entry.title}</h3>
           <span className="font-mono text-xs text-fg-faint">{entry.subtitle}</span>
@@ -29,7 +28,7 @@ export function TimelineEntry({ entry }: { entry: ExperienceEntry }) {
         <ul className="mb-4 grid gap-2">
           {entry.highlights.map((highlight) => (
             <li key={highlight} className="relative pl-5 text-[14.5px]">
-              <span className="absolute left-0 top-[0.72em] h-px w-2.5 bg-stroke" />
+              <span className="absolute left-0 top-[0.72em] h-px w-2.5 bg-amber" />
               {highlight}
             </li>
           ))}

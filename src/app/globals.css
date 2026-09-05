@@ -30,6 +30,8 @@
   --color-amber: var(--amber);
   --color-stroke: var(--stroke);
   --color-stroke-soft: var(--stroke-soft);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-fg-dim: var(--fg-dim);
   --color-fg-faint: var(--fg-faint);
   --color-grid: var(--grid);
@@ -37,15 +39,16 @@
 
 :root {
   --ink: #0c1119;
-  --grid: #18222f;
-  --stroke: #3d5975;
-  --stroke-soft: #243347;
-  --fg: #e3e9f1;
-  --fg-dim: #8d9bae;
-  --fg-faint: #5d6b7d;
-  --brand: #59a8d6;
-  --amber: #d9a147;
-  --surface: #101825;
+  --grid: #151d29;
+  --stroke: #4a6684;
+  --stroke-soft: #2d3f58;
+  --fg: #e6ebf2;
+  --fg-dim: #9ca9bc;
+  --fg-faint: #7d8b9e;
+  --brand: #5fabd8;
+  --amber: #e0a850;
+  --surface: #161f2e;
+  --surface-2: #1c2637;
 }
 
 [data-theme="light"] {
@@ -55,10 +58,11 @@
   --stroke-soft: #c3d0de;
   --fg: #111a24;
   --fg-dim: #4b5b6d;
-  --fg-faint: #7e8c9c;
+  --fg-faint: #6b7a8b;
   --brand: #1b5c8c;
   --amber: #a9701f;
   --surface: #f5f8fb;
+  --surface-2: #eef3f8;
 }
 
 @layer base {
@@ -67,6 +71,12 @@
   }
   html {
     scroll-padding-top: 4rem;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
   body {
     @apply bg-background text-foreground;
@@ -78,5 +88,16 @@
   a:focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Solid bordered panel — lifts content off the blueprint grid. */
+  .bp-panel {
+    @apply border border-stroke-soft bg-card;
+  }
+  /* Static (non-motion) hover lift. Motion cards use whileHover instead. */
+  .bp-panel-hover {
+    @apply transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-stroke;
   }
 }

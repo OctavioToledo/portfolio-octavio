@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: 'Octavio Toledo — Software Engineer',
   description:
     'Backend e integraciones para plataformas ERP. Java, Spring Boot, NestJS y arquitectura orientada a eventos.',
-  metadataBase: new URL('https://octavio-toledo-portfolio.vercel.app'),
+  metadataBase: new URL('https://octavio-toledo.vercel.app'),
 };
 
 export default function RootLayout({

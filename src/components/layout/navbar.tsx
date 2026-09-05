@@ -2,6 +2,7 @@
 
 import { Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { motion, useScroll, useSpring } from 'motion/react'
 import { useLanguage } from '@/context/language-context'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import { heroContent, socialLinks } from '@/content/hero'
@@ -31,6 +32,8 @@ export function Navbar() {
   const { language } = useLanguage()
   const pathname = usePathname()
   const isHome = pathname === '/'
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 })
   // useScrollSpy looks up section ids via document.getElementById — on routes other than
   // "/" none of them exist, so it safely resolves to null and nothing is highlighted.
   const activeId = useScrollSpy(NAV_IDS)
@@ -54,6 +57,11 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stroke-soft bg-background/90 backdrop-blur">
+      <motion.div
+        aria-hidden
+        style={{ scaleX: progress }}
+        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-amber"
+      />
       <div className="mx-auto flex max-w-[1080px] items-center gap-6 px-7 py-3">
         <nav className="hidden flex-1 gap-4 md:flex">{renderLinks()}</nav>
 
