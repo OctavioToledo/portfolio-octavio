@@ -46,7 +46,7 @@ export function Navbar() {
         key={section.id}
         href={isHome ? `#${section.id}` : `/#${section.id}`}
         aria-current={isHome && activeId === section.id ? 'page' : undefined}
-        className={`whitespace-nowrap font-mono text-[11px] uppercase tracking-wider transition-colors ${
+        className={`whitespace-nowrap font-mono text-[12px] font-medium uppercase tracking-[0.08em] transition-colors ${
           isHome && activeId === section.id ? 'text-brand' : 'text-fg-dim hover:text-fg'
         }`}
       >
@@ -81,7 +81,7 @@ export function Navbar() {
           <a
             href={cvHref}
             download
-            className="inline-flex items-center gap-1.5 whitespace-nowrap bg-brand px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap bg-brand px-3.5 py-1.5 font-mono text-xs font-medium uppercase tracking-[0.08em] text-primary-foreground transition-opacity hover:opacity-90"
           >
             {cv.cvLabel}
           </a>

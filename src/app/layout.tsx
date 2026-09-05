@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Condensed } from "next/font/google";
+import { JetBrains_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Condensed } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
@@ -17,9 +17,9 @@ const plexSansCondensed = IBM_Plex_Sans_Condensed({
   variable: "--font-display-plex",
 });
 
-const plexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   variable: "--font-mono-plex",
 });
 
@@ -39,7 +39,7 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${plexSans.variable} ${plexSansCondensed.variable} ${plexMono.variable}`}
+      className={`${plexSans.variable} ${plexSansCondensed.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <ThemeProvider>

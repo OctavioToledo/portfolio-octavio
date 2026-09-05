@@ -21,7 +21,7 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       disabled={!mounted}
-      className="border border-stroke-soft px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-fg-dim transition-colors hover:border-brand hover:text-brand disabled:opacity-0"
+      className="border border-stroke-soft px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-fg-dim transition-colors hover:border-brand hover:text-brand disabled:opacity-0"
     >
       {mounted ? (theme === 'dark' ? labels.light : labels.dark) : labels.loading}
     </button>
