@@ -4,7 +4,7 @@ import { motion } from 'motion/react'
 import { useLanguage } from '@/context/language-context'
 import { heroContent, socialLinks } from '@/content/hero'
 import { DrawingSheet } from '@/components/blueprint/drawing-sheet'
-import { ArchitectureDiagram } from '@/components/blueprint/architecture-diagram'
+import { WorkflowDiagram } from '@/components/blueprint/workflow-diagram'
 import { EASE } from '@/lib/motion'
 
 const rise = {
@@ -25,10 +25,10 @@ export function HeroSection() {
         transition={{ duration: 0.5, ease: EASE }}
       >
         <DrawingSheet
-          label={language === 'es' ? 'Arquitectura de integraciones' : 'Integrations architecture'}
+          label={language === 'es' ? 'Ciclo de desarrollo' : 'Development cycle'}
           meta="Rev. 2026"
         >
-          <ArchitectureDiagram />
+          <WorkflowDiagram />
 
           <div className="mt-5 grid grid-cols-1 border-t border-stroke md:grid-cols-[1fr_auto]">
             <div className="border-stroke-soft py-5 md:border-r md:pr-6">
